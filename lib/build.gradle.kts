@@ -7,16 +7,21 @@
  * This project uses @Incubating APIs which are subject to change.
  */
 
+group = "org.msync"
+version = "0.0.1-SNAPSHOT"
+
 plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
     id("org.jetbrains.kotlin.jvm") version "1.8.10"
 
     // Apply the java-library plugin for API and implementation separation.
     `java-library`
+    `maven-publish`
 }
 
 repositories {
     // Use Maven Central for resolving dependencies.
+    mavenLocal()
     mavenCentral()
 }
 
@@ -25,7 +30,7 @@ dependencies {
     api("org.apache.commons:commons-math3:3.6.1")
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
-    implementation("com.google.guava:guava:31.1-jre")
+    implementation("org.clojure:clojure:1.11.1")
 }
 
 testing {
@@ -35,5 +40,21 @@ testing {
             // Use Kotlin Test test framework
             useKotlinTest("1.8.10")
         }
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            artifactId = rootProject.name
+            pom {
+                name.set("Clojure via Kotlin")
+                description.set("A library to enable low-friction usage of Clojure in your Kotlin projects")
+            }
+            from(components["java"])
+        }
+    }
+    repositories {
+        mavenLocal()
     }
 }
