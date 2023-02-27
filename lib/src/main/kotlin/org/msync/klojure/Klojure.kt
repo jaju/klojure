@@ -7,23 +7,29 @@ import clojure.lang.LazySeq
 import clojure.lang.Symbol
 
 // Symbols
-fun symbol(s: String): Symbol = Symbol.intern(s)
 fun symbol(k: Keyword): Symbol = k.sym
+fun symbol(s: String): Symbol = Symbol.intern(s)
 
 // Keywords
-fun keyword(s: String): Keyword = Keyword.intern(s)
 fun keyword(k: Keyword): Keyword = k
+fun keyword(s: String): Keyword = Keyword.intern(s)
 
 // Fn invocation
 fun fn(s: String): IFn = Clojure.`var`(s)
 fun fn(ns: String, s: String): IFn = Clojure.`var`(ns, s)
 
+//
 private fun cfn(s: String) = fn("clojure.core", s)
+
+// Core imports - but not expected to be widely used. Hence, private
 private val _apply = cfn("apply")
+private val _eval = cfn("eval")
+private val _readString = cfn("read-string")
 
 // Core imports
-val _readString = cfn("read-string")
-val _eval = cfn("eval")
+val load = cfn("load")
+val loadFile = cfn("load-file")
+val require = cfn("require")
 val list = cfn("list")
 val map = cfn("map")
 val reduce = cfn("reduce")

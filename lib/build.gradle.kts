@@ -31,6 +31,9 @@ dependencies {
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation("org.clojure:clojure:1.11.1")
+
+    // Test
+    testImplementation("cheshire:cheshire:5.11.0")
 }
 
 testing {
