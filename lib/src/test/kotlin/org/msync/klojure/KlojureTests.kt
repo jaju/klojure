@@ -14,12 +14,18 @@ class KlojureTests {
     }
 
     @Test
-    fun `map a function, and seq() on it`() {
+    fun `map a function on a collection of a specific type, and seq() on it`() {
         // Clojure's arithmetic ops convert to Long-s
         val results = map(inc, listOf(1, 2, 3, 4, 5))
         assertEquals(listOf(2L, 3L, 4L, 5L, 6L), results.seq())
     }
 
+    @Test
+    fun `map identity on a collection of Any, and seq() on it`() {
+        // Clojure's arithmetic ops convert to Long-s
+        val results = map(identity, listOf(1, 2, 3, keyword("4"), "5"))
+        assertEquals(listOf(1, 2, 3, keyword("4"), "5"), results.seq())
+    }
 
     @Test
     fun `map a custom function, and seq() on it`() {

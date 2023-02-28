@@ -28,6 +28,7 @@ private val _readString = cfn("read-string")
 
 // Core imports
 val require = cfn("require")
+val identity = cfn("identity")
 val list = cfn("list")
 val map = cfn("map")
 val reduce = cfn("reduce")
