@@ -15,7 +15,7 @@ class CheshireTests {
     val fromJson = fn("klojure.json", "from-json")
 
     @Test
-    fun `clojure edn->map->json->map`() {
+    fun `clojure edn-2-map-2-json-2-map`() {
         val edn = readEdnFile("data.edn")
         val pune = get(edn, keyword("pune"))
         val result = toJson(pune)
