@@ -1,0 +1,12 @@
+#+title: Klojure
+
+Note: This README is yet to evolve.
+
+* Purpose
+The purpose of this library is to reduce friction (as a low bar) in using Clojure in your Kotlin codebases.
+A a higher bar, the purpose is to make it enjoyable to use Clojure in your Kotlin codebases
+
+* Rationale
+The purpose of Kotlin is to make Java enjoyable. While Kotlin has adopted many developer-friendly ideas from multiple languages, there are times when you miss the fluidity (or functionality) available in the Clojure world. Especially if you are a Clojure fan but constrained to work in a Kotlin codebase.
+
+The pitch to the *management* is that this is _just another Kotlin library_. And we limit Clojure code to a specific set of purposes and label them as DSL. ;-)
