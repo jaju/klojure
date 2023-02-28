@@ -25,9 +25,9 @@ private fun cfn(s: String) = fn("clojure.core", s)
 private val _apply = cfn("apply")
 private val _eval = cfn("eval")
 private val _readString = cfn("read-string")
+private val _require = cfn("require")
 
 // Core imports
-val require = cfn("require")
 val identity = cfn("identity")
 val list = cfn("list")
 val map = cfn("map")
@@ -35,6 +35,12 @@ val reduce = cfn("reduce")
 val get = cfn("get")
 val selectKeys = cfn("select-keys")
 
+fun read(s: String): Any = Clojure.read(s)
+fun require(s: String) { _require(read(s)) }
+fun require(vararg s: String) {
+    s.forEach { require(it) }
+}
+fun require(o: Any) { _require(o) }
 fun <T> eval(s: String): T = _eval(_readString(s)) as T
 
 fun <T> Any.seq(): T = (this as LazySeq).seq() as T

@@ -1,14 +1,13 @@
 package org.msync.klojure
 
-import clojure.java.api.Clojure
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class CheshireTests {
 
     init {
-        require(Clojure.read("klojure.utils"))
-        require(Clojure.read("klojure.json"))
+        require("klojure.utils")
+        require("klojure.json")
     }
 
     val readEdnFile = fn("klojure.utils", "read-edn-file")
