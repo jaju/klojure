@@ -3,10 +3,11 @@ package org.msync.klojure
 import clojure.lang.AFn
 import kotlin.test.*
 
-val inc = fn("clojure.core", "inc")
-val plus = fn("clojure.core", "+")
+class KlojureTests {
 
-class KlojureTest {
+    val inc = fn("clojure.core", "inc")
+    val plus = fn("clojure.core", "+")
+
     @Test
     fun `use an imported function`() {
         assertEquals(plus(1, 2), 3L, "Could not invoke clojure.core/+...")

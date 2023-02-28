@@ -27,8 +27,6 @@ private val _eval = cfn("eval")
 private val _readString = cfn("read-string")
 
 // Core imports
-val load = cfn("load")
-val loadFile = cfn("load-file")
 val require = cfn("require")
 val list = cfn("list")
 val map = cfn("map")

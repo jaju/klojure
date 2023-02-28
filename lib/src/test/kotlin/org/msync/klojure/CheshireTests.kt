@@ -7,10 +7,11 @@ import kotlin.test.assertEquals
 class CheshireTests {
 
     init {
+        require(Clojure.read("klojure.utils"))
         require(Clojure.read("klojure.json"))
     }
 
-    val readEdnFile = fn("klojure.json", "read-edn")
+    val readEdnFile = fn("klojure.utils", "read-edn-file")
     val toJson = fn("klojure.json", "to-json")
     val fromJson = fn("klojure.json", "from-json")
 
