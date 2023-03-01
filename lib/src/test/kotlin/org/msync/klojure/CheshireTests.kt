@@ -7,12 +7,12 @@ class CheshireTests {
 
     init {
         require("klojure.utils")
-        require("klojure.json")
+        require("klojure-test.json")
     }
 
     val readEdnFile = fn("klojure.utils", "read-edn-file")
-    val toJson = fn("klojure.json", "to-json")
-    val fromJson = fn("klojure.json", "from-json")
+    val toJson = fn("klojure-test.json", "to-json")
+    val fromJson = fn("klojure-test.json", "from-json")
 
     @Test
     fun `clojure edn-2-map-2-json-2-map`() {

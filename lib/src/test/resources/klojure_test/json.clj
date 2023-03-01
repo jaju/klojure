@@ -1,4 +1,4 @@
-(ns klojure.json
+(ns klojure-test.json
   (:require [cheshire.core :as j]))
 
 (defn to-json [m]
