@@ -3,26 +3,56 @@ version = "0.0.1-SNAPSHOT"
 
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.8.10"
+    `java-library`
     signing
     `maven-publish`
     id("io.github.gradle-nexus.publish-plugin") version "1.2.0"
 }
 
+repositories {
+    mavenCentral()
+    maven {
+        url = uri("https://clojars.org/repo")
+    }
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+dependencies {
+    // This dependency is exported to consumers, that is to say found on their compile classpath.
+    api("org.clojure:clojure:1.11.1")
+
+    implementation("nrepl:nrepl:1.0.0")
+    // Test
+    testImplementation("cheshire:cheshire:5.11.0")
+}
+
+testing {
+    suites {
+        // Configure the built-in test suite
+        val test by getting(JvmTestSuite::class) {
+            // Use Kotlin Test test framework
+            useKotlinTest("1.8.10")
+        }
+    }
+}
+
 nexusPublishing {
     repositories {
-        sonatype {  //only for users registered in Sonatype after 24 Feb 2021
-            nexusUrl.set(uri("https://oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://oss.sonatype.org/content/repositories/snapshots/"))
-        }
+        sonatype()
     }
 }
 
 publishing {
     publications {
-        create<MavenPublication>("maven") {
-            groupId = "org.msync"
-            artifactId = rootProject.name
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+
             pom {
+                packaging = "jar"
                 name.set("Clojure via Kotlin")
                 description.set("A library to enable low-friction usage of Clojure in your Kotlin projects")
                 url.set("https://github.com/jaju/klojure/")
@@ -43,17 +73,12 @@ publishing {
                     developerConnection.set("scm:git:ssh://github.com/jaju/klojure")
                 }
             }
-            from(components["kotlin"])
         }
     }
 }
 
 signing {
-    sign(publishing.publications["maven"])
-}
-
-subprojects {
-    project(":lib")
+    sign(publishing.publications["mavenJava"])
 }
 
 if (project.hasProperty("dev") &&
