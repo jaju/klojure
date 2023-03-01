@@ -69,6 +69,7 @@ publishing {
                     }
                 }
                 scm {
+                    url.set("https://github.com/jaju/klojure")
                     connection.set("scm:git:https://github.com/jaju/klojure")
                     developerConnection.set("scm:git:ssh://github.com/jaju/klojure")
                 }
