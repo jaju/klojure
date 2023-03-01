@@ -41,10 +41,14 @@ fun require(vararg s: String) {
     s.forEach { require(it) }
 }
 fun require(o: Any) { _require(o) }
+
+@Suppress("UNCHECKED_CAST")
 fun <T> eval(s: String): T = _eval(_readString(s)) as T
 
+@Suppress("UNCHECKED_CAST")
 fun <T> Any.seq(): T = (this as LazySeq).seq() as T
 
+@Suppress("UNCHECKED_CAST")
 fun <T> apply(vararg a: Any): T {
     assert(a.size > 1)
     return when (a.size) {
