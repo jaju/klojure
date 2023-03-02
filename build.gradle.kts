@@ -25,7 +25,9 @@ dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api("org.clojure:clojure:1.11.1")
 
+    //
     implementation("nrepl:nrepl:1.0.0")
+
     // Test
     testImplementation("cheshire:cheshire:5.11.0")
 }

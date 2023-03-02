@@ -1,5 +1,7 @@
 package org.msync.klojure
 
+import org.msync.klojure.RT as rt
+import org.msync.klojure.RT.fn
 import clojure.lang.AFn
 import kotlin.test.*
 
@@ -16,15 +18,15 @@ class KlojureTests {
     @Test
     fun `map a function on a collection of a specific type, and seq() on it`() {
         // Clojure's arithmetic ops convert to Long-s
-        val results = map(inc, listOf(1, 2, 3, 4, 5))
+        val results = rt.map(inc, listOf(1, 2, 3, 4, 5))
         assertEquals(listOf(2L, 3L, 4L, 5L, 6L), results.seq())
     }
 
     @Test
     fun `map identity on a collection of Any, and seq() on it`() {
         // Clojure's arithmetic ops convert to Long-s
-        val results = map(identity, listOf(1, 2, 3, keyword("4"), "5"))
-        assertEquals(listOf(1, 2, 3, keyword("4"), "5"), results.seq())
+        val results = rt.map(rt.identity, listOf(1, 2, 3, rt.keyword("4"), "5"))
+        assertEquals(listOf(1, 2, 3, rt.keyword("4"), "5"), results.seq())
     }
 
     @Test
@@ -35,25 +37,25 @@ class KlojureTests {
                 return (arg1 as Int) + 1
             }
         }
-        val results = map(myInc, listOf(1, 2, 3, 4, 5))
+        val results = rt.map(myInc, listOf(1, 2, 3, 4, 5))
         assertEquals(listOf(2, 3, 4, 5, 6), results.seq())
     }
 
     @Test
     fun `reduce`() {
-        assertEquals(10L, reduce(plus, listOf(1, 2, 3, 4)))
+        assertEquals(10L, rt.reduce(plus, listOf(1, 2, 3, 4)))
     }
 
     @Test
     fun `map get`() {
-        assertEquals("one", get(mapOf("1" to "one"), "1"))
+        assertEquals("one", rt.get(mapOf("1" to "one"), "1"))
     }
 
     @Test
     fun `map select-keys`() {
         assertEquals(
             mapOf("1" to "one", "3" to "three"),
-            selectKeys(
+            rt.selectKeys(
                 mapOf("1" to "one", "2" to "two", "3" to "three"),
                 listOf("1", "3")
             )
@@ -63,9 +65,9 @@ class KlojureTests {
     @Test
     fun `apply with variable length lists`() {
         val plus = fn("clojure.core", "+")
-        assertEquals(15L, apply(plus, listOf(1, 2, 3, 4, 5)))
-        assertEquals(231L, apply(plus, IntRange(1, 21)))
-        assertEquals(1275L, apply(plus, IntRange(1, 50)))
+        assertEquals(15L, rt.apply(plus, listOf(1, 2, 3, 4, 5)))
+        assertEquals(231L, rt.apply(plus, IntRange(1, 21)))
+        assertEquals(1275L, rt.apply(plus, IntRange(1, 50)))
     }
 
     @Test
@@ -76,7 +78,7 @@ class KlojureTests {
 
     @Test
     fun `eval - deal with clojure maps with keyword keys`() {
-        val cMap = eval<Map<Any, Any>>("""{:name "Ravindra", :country "Bharat"}""")
-        assertEquals("Bharat", get(cMap, keyword("country")))
+        val cMap = rt.eval<Map<Any, Any>>("""{:name "Ravindra", :country "Bharat"}""")
+        assertEquals("Bharat", rt.get(cMap, rt.keyword("country")))
     }
 }
