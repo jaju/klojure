@@ -3,4 +3,11 @@ dependencies {
 }
 
 val sourceSet = project.the<SourceSetContainer>()
-sourceSet["main"].resources.srcDirs("src/dev/clojure")
+
+sourceSet {
+    val main by getting {
+        resources {
+            srcDirs += srcDir("src/dev/clojure")
+        }
+    }
+}
