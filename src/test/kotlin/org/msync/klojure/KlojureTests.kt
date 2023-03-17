@@ -11,6 +11,15 @@ class KlojureTests {
     val plus = fn("clojure.core", "+")
 
     @Test
+    fun `basic identifiers`() {
+        assertEquals("pune", rt.name(rt.keyword("pune")))
+        assertEquals("pune", rt.name(rt.symbol("pune")))
+        assertEquals(rt.keyword("pune"), rt.read(":pune"))
+        assertEquals(rt.symbol("pune"), rt.eval("(quote pune)"))
+        assertEquals(rt.symbol("pune"), rt.eval(rt.readString("'pune")))
+    }
+
+    @Test
     fun `use an imported function`() {
         assertEquals(plus(1, 2), 3L, "Could not invoke clojure.core/+...")
     }

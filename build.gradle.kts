@@ -2,10 +2,10 @@ group = "org.msync"
 version = "0.0.2-SNAPSHOT"
 
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.8.10"
-    `java-library`
+    java
     signing
     `maven-publish`
+    id("org.jetbrains.kotlin.jvm") version "1.8.10"
     id("io.github.gradle-nexus.publish-plugin") version "1.2.0"
 }
 

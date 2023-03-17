@@ -7,6 +7,11 @@ import clojure.lang.LazySeq
 import clojure.lang.Symbol
 
 object RT {
+
+    fun name(s: String) = s
+    fun name(k: Keyword) = k.name
+    fun name(sym: Symbol) = sym.name
+
     // Symbols
     fun symbol(k: Keyword): Symbol = k.sym
     fun symbol(s: String): Symbol = Symbol.intern(s)
@@ -25,7 +30,6 @@ object RT {
     // Core imports - but not expected to be widely used. Hence, private
     private val _apply = cfn("apply")
     private val _eval = cfn("eval")
-    private val _readString = cfn("read-string")
     private val _require = cfn("require")
 
     // Core imports
@@ -36,6 +40,7 @@ object RT {
     val get = cfn("get")
     val selectKeys = cfn("select-keys")
 
+    val readString = cfn("read-string")
     fun read(s: String): Any = Clojure.read(s)
     fun require(s: String) {
         _require(read(s))
@@ -50,7 +55,8 @@ object RT {
     }
 
     @Suppress("UNCHECKED_CAST")
-    fun <T> eval(s: String): T = _eval(_readString(s)) as T
+    fun <T> eval(s: String): T = _eval(readString(s)) as T
+    fun <T> eval(a: Any): T = _eval(a) as T
 
     @Suppress("UNCHECKED_CAST")
     fun <T> apply(vararg a: Any): T {
