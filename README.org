@@ -1,5 +1,7 @@
 #+title: Klojure
 
+* Test section :noexport:
+
 Note: This README is yet to evolve.
 
 * Purpose
@@ -10,3 +12,20 @@ A a higher bar, the purpose is to make it enjoyable to use Clojure in your Kotli
 The purpose of Kotlin is to make Java enjoyable. While Kotlin has adopted many developer-friendly ideas from multiple languages, there are times when you miss the fluidity (or functionality) available in the Clojure world. Especially if you are a Clojure fan but constrained to work in a Kotlin codebase.
 
 The pitch to the *management* is that this is _just another Kotlin library_. And we limit Clojure code to a specific set of purposes and label them as DSL. ;-)
+
+* Why Kotlin?
+It runs on the JVM, and has `invoke` superpowers! 'Nuff said.
+
+PS: It's actually an enjoyable, practical language.
+
+* How/why do I use klojure?
+Honestly, there's nothing special to speak of. It's just a small wrapper around Clojure, and the hope is to make it possible to use Clojure in your Kotlin projects.
+Some problems are much more enjoyable to solve in Clojure and there may be situations where you have may want to do just that - but in your Kotlin projects. Klojure wants to make it easier.
+
+Include as follows (gradle)
+#+begin_src kotlin
+implementation("org.msync:klojure:0.0.1")
+#+end_src
+
+** Examples in the tests
+Go to the [[file:src/test/kotlin][tests folder]].
