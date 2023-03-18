@@ -2,7 +2,6 @@ package org.msync.klojure
 
 import org.msync.klojure.RT as rt
 import org.msync.klojure.RT.fn
-import clojure.lang.AFn
 import kotlin.test.*
 
 class BasicTests {
@@ -48,7 +47,7 @@ class BasicTests {
     }
 
     @Test
-    fun `Exceptional cases seq exceptional responses`() {
+    fun `exceptional cases seq exceptional responses`() {
         val thrown = assertFails { Object().seq<Any>() }
         assertTrue(ClassCastException::class.java == thrown.javaClass)
     }
@@ -57,5 +56,11 @@ class BasicTests {
     fun `eval - deal with clojure maps with keyword keys`() {
         val cMap = rt.eval<Map<Any, Any>>("""{:name "Ravindra", :country "Bharat"}""")
         assertEquals("Bharat", rt.get(cMap, rt.keyword("country")))
+    }
+
+    @Test
+    fun `nothing`() {
+        val content = rt.slurpResource("data.edn")
+        println(content)
     }
 }

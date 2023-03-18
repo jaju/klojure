@@ -21,6 +21,20 @@ java {
     withSourcesJar()
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDirs += srcDir("src/main/clojure")
+        }
+    }
+
+    test {
+        resources {
+            srcDirs += srcDir("src/test/clojure")
+        }
+    }
+}
+
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api("org.clojure:clojure:1.11.1")
@@ -31,6 +45,7 @@ dependencies {
     // Test
     testImplementation("cheshire:cheshire:5.11.0")
 }
+
 
 testing {
     suites {
@@ -86,6 +101,7 @@ signing {
 
 if (project.hasProperty("dev") &&
     project.property("dev") == "true" &&
-    File("$rootDir/dev.gradle.kts").isFile) {
+    File("$rootDir/dev.gradle.kts").isFile
+) {
     apply("$rootDir/dev.gradle.kts")
 }

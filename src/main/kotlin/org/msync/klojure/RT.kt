@@ -6,8 +6,8 @@ import clojure.lang.*
 object RT {
 
     fun name(s: String) = s
-    fun name(k: Keyword) = k.name
-    fun name(sym: Symbol) = sym.name
+    fun name(k: Keyword): String = k.name
+    fun name(sym: Symbol): String = sym.name
 
     // Symbols
     fun symbol(k: Keyword): Symbol = k.sym
@@ -30,20 +30,28 @@ object RT {
     private val _require = cfn("require")
 
     // Core imports
+    val slurp = cfn("slurp")
+    val spit = cfn("spit")
     val identity = cfn("identity")
     val list = cfn("list")
     val vec = cfn("vec")
     val vector = cfn("vector")
 
+    fun slurpResource(resourceName: String): Any? {
+        val resource = javaClass.classLoader.getResource(resourceName)
+        return slurp(resource)
+    }
+
     val _map = cfn("map")
 
-    inline fun <I, O> wrapMapperFn(crossinline f: Function1<I, O>) = object: AFn() {
+    @Suppress("UNCHECKED_CAST")
+    inline fun <I, O> wrapFn(crossinline f: Function1<I, O>) = object: AFn() {
         override fun invoke(arg: Any?): Any? {
             return f(arg as I)
         }
     }
-    fun <I, O> map(f: Function1<I, O>, coll: Any): Any? {
-        val wrapperFn = wrapMapperFn(f)
+    fun <I, O> map(f: Function1<I, O>, coll: Collection<I>): Any? {
+        val wrapperFn = wrapFn(f)
         return _map(wrapperFn, coll)
     }
 
@@ -51,9 +59,9 @@ object RT {
         return _map(f, coll)
     }
 
-    private val _reduce = cfn("reduce")
+    val _reduce = cfn("reduce")
 
-    inline fun <I, O> wrapReducingFn(crossinline f: Function2<I, I, O>, unit: O? = null) = object: AFn() {
+    inline fun <I, O> wrapFn(crossinline f: Function2<I, I, O>, unit: O? = null) = object: AFn() {
 
         override fun invoke(): Any? {
             return unit
@@ -68,11 +76,16 @@ object RT {
             return f(arg1 as I, arg2 as I) as Any
         }
     }
-    fun <I, O> reduce(f: Function2<I, I, O>, coll: Any): Any? {
-        val wrapperF = wrapReducingFn(f)
+    inline fun <I, O> reduce(crossinline f: Function2<I, I, O>, coll: Collection<I>): Any? {
+        val wrapperF = wrapFn(f)
         return _reduce(wrapperF, coll)
     }
-    fun reduce(f: IFn, coll: Any): Any? = _reduce(f, coll)
+
+    inline fun <I, O> reduce(crossinline f: Function2<I, I, O>, coll: Any): Any? {
+        val wrapperF = wrapFn(f)
+        return _reduce(wrapperF, coll)
+    }
+    fun reduce(f: IFn, coll: Collection<Any>): Any? = _reduce(f, coll)
 
     val get = cfn("get")
     val selectKeys = cfn("select-keys")
