@@ -61,6 +61,6 @@ class BasicTests {
     @Test
     fun `nothing`() {
         val content = rt.slurpResource("data.edn")
-        println(content)
+        assertNotNull(content)
     }
 }
