@@ -5,9 +5,8 @@ import org.msync.klojure.RT.fn
 import clojure.lang.AFn
 import kotlin.test.*
 
-class KlojureTests {
+class BasicTests {
 
-    val inc = fn("clojure.core", "inc")
     val plus = fn("clojure.core", "+")
 
     @Test
@@ -25,34 +24,11 @@ class KlojureTests {
     }
 
     @Test
-    fun `map a function on a collection of a specific type, and seq() on it`() {
-        // Clojure's arithmetic ops convert to Long-s
-        val results = rt.map(inc, listOf(1, 2, 3, 4, 5))
-        assertEquals(listOf(2L, 3L, 4L, 5L, 6L), results.seq())
-    }
-
-    @Test
-    fun `map identity on a collection of Any, and seq() on it`() {
-        // Clojure's arithmetic ops convert to Long-s
-        val results = rt.map(rt.identity, listOf(1, 2, 3, rt.keyword("4"), "5"))
-        assertEquals(listOf(1, 2, 3, rt.keyword("4"), "5"), results.seq())
-    }
-
-    @Test
-    fun `map a custom function, and seq() on it`() {
-        // Custom function that keeps Int-s, Int-s
-        val myInc = object : AFn() {
-            override fun invoke(arg1: Any?): Any {
-                return (arg1 as Int) + 1
-            }
-        }
-        val results = rt.map(myInc, listOf(1, 2, 3, 4, 5))
-        assertEquals(listOf(2, 3, 4, 5, 6), results.seq())
-    }
-
-    @Test
-    fun `reduce`() {
-        assertEquals(10L, rt.reduce(plus, listOf(1, 2, 3, 4)))
+    fun `list, vector, etc`() {
+        assertEquals(listOf(1, 2, 3), rt.vector(1, 2, 3))
+        assertEquals(listOf(1, 2, 3), rt.list(1, 2, 3))
+        assertEquals(rt.vector(1, 2, 3), rt.list(1, 2, 3))
+        assertEquals(listOf(1, 2, 3), rt.vec(listOf(1, 2, 3)))
     }
 
     @Test
@@ -69,14 +45,6 @@ class KlojureTests {
                 listOf("1", "3")
             )
         )
-    }
-
-    @Test
-    fun `apply with variable length lists`() {
-        val plus = fn("clojure.core", "+")
-        assertEquals(15L, rt.apply(plus, listOf(1, 2, 3, 4, 5)))
-        assertEquals(231L, rt.apply(plus, IntRange(1, 21)))
-        assertEquals(1275L, rt.apply(plus, IntRange(1, 50)))
     }
 
     @Test

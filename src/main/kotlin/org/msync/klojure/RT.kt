@@ -1,10 +1,7 @@
 package org.msync.klojure
 
 import clojure.java.api.Clojure
-import clojure.lang.IFn
-import clojure.lang.Keyword
-import clojure.lang.LazySeq
-import clojure.lang.Symbol
+import clojure.lang.*
 
 object RT {
 
@@ -35,8 +32,48 @@ object RT {
     // Core imports
     val identity = cfn("identity")
     val list = cfn("list")
-    val map = cfn("map")
-    val reduce = cfn("reduce")
+    val vec = cfn("vec")
+    val vector = cfn("vector")
+
+    val _map = cfn("map")
+
+    inline fun <I, O> wrapMapperFn(crossinline f: Function1<I, O>) = object: AFn() {
+        override fun invoke(arg: Any?): Any? {
+            return f(arg as I)
+        }
+    }
+    fun <I, O> map(f: Function1<I, O>, coll: Any): Any? {
+        val wrapperFn = wrapMapperFn(f)
+        return _map(wrapperFn, coll)
+    }
+
+    fun map(f: IFn, coll: Any): Any? {
+        return _map(f, coll)
+    }
+
+    private val _reduce = cfn("reduce")
+
+    inline fun <I, O> wrapReducingFn(crossinline f: Function2<I, I, O>, unit: O? = null) = object: AFn() {
+
+        override fun invoke(): Any? {
+            return unit
+        }
+
+        override fun invoke(arg1: Any?): Any? {
+            return arg1
+        }
+
+        @Suppress("UNCHECKED_CAST")
+        override fun invoke(arg1: Any?, arg2: Any?): Any? {
+            return f(arg1 as I, arg2 as I) as Any
+        }
+    }
+    fun <I, O> reduce(f: Function2<I, I, O>, coll: Any): Any? {
+        val wrapperF = wrapReducingFn(f)
+        return _reduce(wrapperF, coll)
+    }
+    fun reduce(f: IFn, coll: Any): Any? = _reduce(f, coll)
+
     val get = cfn("get")
     val selectKeys = cfn("select-keys")
 
@@ -56,6 +93,7 @@ object RT {
 
     @Suppress("UNCHECKED_CAST")
     fun <T> eval(s: String): T = _eval(readString(s)) as T
+    @Suppress("UNCHECKED_CAST")
     fun <T> eval(a: Any): T = _eval(a) as T
 
     @Suppress("UNCHECKED_CAST")
