@@ -1,12 +1,12 @@
 #+title: Klojure
 
-* Test section :noexport:
+* General note
+This library is not intended to be complete, and does not have any roadmap yet.
 
-Note: This README is yet to evolve.
-
-* Purpose
 The purpose of this library is to reduce friction (as a low bar) in using Clojure in your Kotlin codebases.
 A a higher bar, the purpose is to make it enjoyable to use Clojure in your Kotlin codebases
+
+The codebase is small enough to allow you to copy the entire code into your codebase and modify as you deem fit, but it is also very useful to simply include it as a dependency to spare you mundane but verbose configuration.
 
 * Rationale
 The purpose of Kotlin is to make Java enjoyable. While Kotlin has adopted many developer-friendly ideas from multiple languages, there are times when you miss the fluidity (or functionality) available in the Clojure world. Especially if you are a Clojure fan but constrained to work in a Kotlin codebase.
@@ -29,3 +29,4 @@ implementation("org.msync:klojure:0.0.1")
 
 ** Examples in the tests
 Go to the [[file:src/test/kotlin][tests folder]].
+

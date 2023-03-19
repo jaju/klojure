@@ -1,7 +1,8 @@
 package org.msync.klojure
 
-import clojure.java.api.Clojure
+import java.util.*
 import clojure.lang.*
+import clojure.java.api.Clojure
 
 object RT {
 
@@ -34,8 +35,18 @@ object RT {
     val spit = cfn("spit")
     val identity = cfn("identity")
     val list = cfn("list")
+    val hashMap = cfn("hash-map")
+    val arrayMap = cfn("array-map")
+    val hashSet = cfn("hash-set")
     val vec = cfn("vec")
     val vector = cfn("vector")
+    val into = cfn("into")
+
+    val assoc = cfn("assoc")
+    val dissoc = cfn("dissoc")
+
+    val cons = cfn("cons")
+    val conj = cfn("conj")
 
     fun slurpResource(resourceName: String): Any? {
         val resource = javaClass.classLoader.getResource(resourceName)
@@ -139,3 +150,8 @@ object RT {
 
 @Suppress("UNCHECKED_CAST")
 fun <T> Any.seq(): T = (this as LazySeq).seq() as T
+
+fun <T> List<T>.clj() = PersistentList.create(this)
+fun <T> Set<T>.clj() = PersistentHashSet.create(this)
+fun <K,V> Map<K, V>.clj() = if (this.size > 16) PersistentHashMap.create(this) else PersistentArrayMap.create(this)
+fun Any.clj() = this

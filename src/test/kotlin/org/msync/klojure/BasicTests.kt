@@ -59,6 +59,48 @@ class BasicTests {
     }
 
     @Test
+    fun `assoc on kotlin map`() {
+        val mKt = mapOf("a" to "A", "b" to "B")
+        val newM = rt.assoc(mKt.clj(), "c", "C")
+        assertEquals(mapOf("a" to "A", "b" to "B", "c" to "C"), newM)
+    }
+
+    @Test
+    fun `dissoc on a kotlin map`() {
+        val mKt = mapOf("a" to "A", "b" to "B", "c" to "C")
+        val newM = rt.dissoc(mKt.clj(), "c")
+        assertEquals(mapOf("a" to "A", "b" to "B"), newM)
+    }
+
+    @Test
+    fun `assoc on clojure map`() {
+        val m = rt.hashMap("a", "A", "b", "B")
+        val newM = rt.assoc(m, "c", "C")
+        assertEquals(mapOf("a" to "A", "b" to "B", "c" to "C"), newM)
+    }
+
+    @Test
+    fun `cons on a list`() {
+        val lKt = listOf(1, 2, 3)
+        val newL = rt.cons(0, lKt.clj())
+        assertEquals(listOf(0, 1, 2, 3), newL)
+    }
+
+    @Test
+    fun `conj on a list`() {
+        val lKt = listOf(1, 2, 3)
+        val newL = rt.conj(lKt.clj(), 0)
+        assertEquals(listOf(0, 1, 2, 3), newL)
+    }
+
+    @Test
+    fun `conj on a clj-vector`() {
+        val cljVector = rt.vector(1, 2, 3)
+        val newCljVector = rt.conj(cljVector, 0)
+        assertEquals(listOf(1, 2, 3, 0), newCljVector)
+    }
+
+    @Test
     fun `nothing`() {
         val content = rt.slurpResource("data.edn")
         assertNotNull(content)
