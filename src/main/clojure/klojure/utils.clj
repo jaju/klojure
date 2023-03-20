@@ -4,3 +4,6 @@
 
 (defn read-edn-file [file]
   (edn/read-string (-> file jio/resource slurp)))
+
+(defn kmap->smap [m]
+  (clojure.walk/stringify-keys m))

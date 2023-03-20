@@ -38,6 +38,7 @@ sourceSets {
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api("org.clojure:clojure:1.11.1")
+    api("org.slf4j:slf4j-api:2.0.6")
 
     //
     implementation("nrepl:nrepl:1.0.0")
