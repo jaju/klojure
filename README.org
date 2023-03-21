@@ -16,17 +16,21 @@ The pitch to the *management* is that this is _just another Kotlin library_. And
 * Why Kotlin?
 It runs on the JVM, and has `invoke` superpowers! 'Nuff said.
 
-PS: It's actually an enjoyable, practical language.
+PS: It's actually an enjoyable, practical language. And `invoke` allows for a more natural usage from Kotlin. Clojure's `IFn` is `invoke` all over the place, and Kotlin loves `invoke`.
 
 * How/why do I use klojure?
 Honestly, there's nothing special to speak of. It's just a small wrapper around Clojure, and the hope is to make it possible to use Clojure in your Kotlin projects.
 Some problems are much more enjoyable to solve in Clojure and there may be situations where you have may want to do just that - but in your Kotlin projects. Klojure wants to make it easier.
 
+Add a dependency on this library, connect to nREPL, and peek around or live-code - or both! - as you wish.
+
 Include as follows (gradle)
 #+begin_src kotlin
-implementation("org.msync:klojure:0.0.1")
+implementation("org.msync:klojure:0.0.2")
 #+end_src
+
+** nREPL
+Embed [[https://nrepl.org/][nREPL]] into your application, and start/stop using the [[file:src/main/kotlin/org/msync/klojure/Utils.kt][Utils]] object.
 
 ** Examples in the tests
 Go to the [[file:src/test/kotlin][tests folder]].
-
