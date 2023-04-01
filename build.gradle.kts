@@ -1,12 +1,16 @@
 group = "org.msync"
-version = "0.0.2"
+version = "0.0.3-SNAPSHOT"
 
 plugins {
     java
     signing
     `maven-publish`
-    id("org.jetbrains.kotlin.jvm") version "1.8.10"
+    `kotlin-dsl`
     id("io.github.gradle-nexus.publish-plugin") version "1.2.0"
+}
+
+if (project.hasProperty("dev") && project.property("dev") == "true") {
+    apply(plugin = "dev")
 }
 
 repositories {
@@ -38,7 +42,7 @@ sourceSets {
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api("org.clojure:clojure:1.11.1")
-    api("org.slf4j:slf4j-api:2.0.6")
+    api("org.slf4j:slf4j-api:2.0.7")
 
     //
     implementation("nrepl:nrepl:1.0.0")
@@ -98,11 +102,4 @@ publishing {
 
 signing {
     sign(publishing.publications["mavenJava"])
-}
-
-if (project.hasProperty("dev") &&
-    project.property("dev") == "true" &&
-    File("$rootDir/dev.gradle.kts").isFile
-) {
-    apply("$rootDir/dev.gradle.kts")
 }
