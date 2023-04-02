@@ -25,5 +25,5 @@ sourceSet {
 }
 
 application {
-    mainClass.set("Dev")
+    mainClass.set("klojure.Dev")
 }
