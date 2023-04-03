@@ -10,9 +10,9 @@ class OperationTests {
     val inc = rt.fn("clojure.core", "inc")
     val plus = rt.fn("clojure.core", "+")
 
-    val incKt = { i: Int -> i + 1 }
-    val plusKt = { i: Int, j: Int -> i + j }
-    val concatKt = { s1: String, s2: String -> s1 + s2 }
+    private val incKt = { i: Int -> i + 1 }
+    private val plusKt = { i: Int, j: Int -> i + j }
+    private val concatKt = { s1: String, s2: String -> s1 + s2 }
 
     @Test
     fun `map a function on a collection of a specific type with a lazyseq returned`() {

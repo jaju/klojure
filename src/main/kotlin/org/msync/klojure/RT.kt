@@ -1,8 +1,7 @@
 package org.msync.klojure
 
-import java.util.*
-import clojure.lang.*
 import clojure.java.api.Clojure
+import clojure.lang.*
 
 object RT {
 
@@ -151,7 +150,7 @@ object RT {
 @Suppress("UNCHECKED_CAST")
 fun <T> Any.seq(): T = (this as LazySeq).seq() as T
 
-fun <T> List<T>.clj() = PersistentList.create(this)
-fun <T> Set<T>.clj() = PersistentHashSet.create(this)
+fun <T> List<T>.clj() = PersistentList.create(this) as List<*>
+fun <T> Set<T>.clj() = PersistentHashSet.create(this) as Set<*>
 fun <K,V> Map<K, V>.clj() = if (this.size > 16) PersistentHashMap.create(this) else PersistentArrayMap.create(this)
 fun Any.clj() = this
