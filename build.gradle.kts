@@ -6,7 +6,7 @@ plugins {
     signing
     `maven-publish`
     `kotlin-dsl`
-    id("io.github.gradle-nexus.publish-plugin") version "1.2.0"
+    id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
 }
 
 if (project.hasProperty("dev") && project.property("dev") == "true") {
