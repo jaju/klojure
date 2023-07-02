@@ -57,7 +57,7 @@ testing {
         // Configure the built-in test suite
         val test by getting(JvmTestSuite::class) {
             // Use Kotlin Test test framework
-            useKotlinTest("1.8.21")
+            useKotlinTest("1.8.22")
         }
     }
 }

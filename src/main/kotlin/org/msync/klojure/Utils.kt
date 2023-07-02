@@ -16,6 +16,6 @@ object Utils {
         kToS = RT.fn("klojure.utils", "kmap->smap")
     }
 
-    fun startNrepl(port: Int) = kToS(startNreplFn(RT.keyword("port"), port))
-    fun stopNrepl() = kToS(stopNreplFn())
+    fun startNrepl(port: Int): Any? = kToS(startNreplFn(RT.keyword("port"), port))
+    fun stopNrepl(): Any? = kToS(stopNreplFn())
 }
