@@ -1,5 +1,5 @@
 publish:
-	./gradlew -Pdev=false publish
+	./gradlew -Pdev=false clean publish
 
 dev:
 	./gradlew -Pdev=true run

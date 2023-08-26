@@ -47,15 +47,15 @@ object RT {
     val cons = cfn("cons")
     val conj = cfn("conj")
 
-    fun slurpResource(resourceName: String): Any? {
+    fun slurpResource(resourceName: String): String? {
         val resource = javaClass.classLoader.getResource(resourceName)
-        return slurp(resource)
+        return slurp(resource) as String?
     }
 
     val _map = cfn("map")
 
     @Suppress("UNCHECKED_CAST")
-    inline fun <I, O> wrapFn(crossinline f: Function1<I, O>) = object: AFn() {
+    private inline fun <I, O> wrapFn(crossinline f: Function1<I, O>) = object: AFn() {
         override fun invoke(arg: Any?): Any? {
             return f(arg as I)
         }

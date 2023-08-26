@@ -6,7 +6,7 @@ plugins {
     signing
     `maven-publish`
     `kotlin-dsl`
-    id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
+    id("io.github.gradle-nexus.publish-plugin") version "2.0.0-rc-1"
 }
 
 if (project.hasProperty("dev") && project.property("dev") == "true") {
@@ -41,7 +41,7 @@ sourceSets {
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
-    api("org.clojure:clojure:1.11.1")
+    api("org.clojure:clojure:1.12.0-alpha4")
     api("org.slf4j:slf4j-api:2.0.7")
 
     //
@@ -57,7 +57,7 @@ testing {
         // Configure the built-in test suite
         val test by getting(JvmTestSuite::class) {
             // Use Kotlin Test test framework
-            useKotlinTest("1.8.22")
+            useKotlinTest("1.9.0")
         }
     }
 }
