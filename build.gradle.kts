@@ -9,6 +9,8 @@ plugins {
     id("io.github.gradle-nexus.publish-plugin") version "2.0.0-rc-1"
 }
 
+// If project has the "dev" property, then apply the dev plugin
+// This is useful for local development
 if (project.hasProperty("dev") && project.property("dev") == "true") {
     apply(plugin = "dev")
 }
@@ -23,6 +25,9 @@ repositories {
 java {
     withJavadocJar()
     withSourcesJar()
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 sourceSets {
@@ -41,14 +46,14 @@ sourceSets {
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
-    api("org.clojure:clojure:1.12.0-alpha4")
-    api("org.slf4j:slf4j-api:2.0.7")
+    api("org.clojure:clojure:1.12.0-alpha5")
+    api("org.slf4j:slf4j-api:2.0.9")
 
     //
-    implementation("nrepl:nrepl:1.0.0")
+    implementation("nrepl:nrepl:1.1.0")
 
     // Test
-    testImplementation("cheshire:cheshire:5.11.0")
+    testImplementation("cheshire:cheshire:5.12.0")
 }
 
 
@@ -57,13 +62,13 @@ testing {
         // Configure the built-in test suite
         val test by getting(JvmTestSuite::class) {
             // Use Kotlin Test test framework
-            useKotlinTest("1.9.0")
+            useKotlinTest("1.9.20")
         }
     }
 }
 
 nexusPublishing {
-    repositories {
+    this.repositories {
         sonatype()
     }
 }

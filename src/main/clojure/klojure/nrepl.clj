@@ -18,7 +18,7 @@
 (defn stop-nrepl! []
   (if (nil? @nrepl-server)
     (do
-      (.info logger "NREPL server NOT running!")
+      (.warn logger "NREPL server NOT running!")
       {:status "already-stopped"})
     (do
       (.info logger "Stopping NREPL.")

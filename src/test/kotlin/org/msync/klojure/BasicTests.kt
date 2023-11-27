@@ -101,7 +101,7 @@ class BasicTests {
     }
 
     @Test
-    fun `nothing`() {
+    fun nothing() {
         val content = rt.slurpResource("data.edn")
         assertNotNull(content)
     }
