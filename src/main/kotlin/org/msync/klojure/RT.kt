@@ -83,7 +83,7 @@ object RT {
 
         @Suppress("UNCHECKED_CAST")
         override fun invoke(arg1: Any?, arg2: Any?): Any? {
-            return f(arg1 as I, arg2 as I) as Any
+            return f(arg1 as I, arg2 as I)
         }
     }
     inline fun <I, O> reduce(crossinline f: Function2<I, I, O>, coll: Collection<I>): Any? {

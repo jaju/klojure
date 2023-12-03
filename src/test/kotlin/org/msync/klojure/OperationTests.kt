@@ -78,7 +78,7 @@ class OperationTests {
     }
 
     @Test
-    fun `map`() {
+    fun map() {
         assertEquals(listOf(2, 3), rt.map({ i: Int -> i + 1 }, listOf(1, 2)))
     }
 

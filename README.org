@@ -26,8 +26,12 @@ Add a dependency on this library, connect to nREPL, and peek around or live-code
 
 Include as follows (gradle)
 #+begin_src kotlin
-implementation("org.msync:klojure:0.0.2")
+implementation("org.msync:klojure:0.0.3-SNAPSHOT")
 #+end_src
+
+Use with
+- Java 21+
+- Kotlin 1.9.20+
 
 ** nREPL
 Embed [[https://nrepl.org/][nREPL]] into your application, and start/stop using the [[file:src/main/kotlin/org/msync/klojure/Utils.kt][Utils]] object.
