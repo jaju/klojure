@@ -62,7 +62,7 @@ testing {
         // Configure the built-in test suite
         val test by getting(JvmTestSuite::class) {
             // Use Kotlin Test test framework
-            useKotlinTest("1.9.20")
+            useKotlinTest("1.9.21")
         }
     }
 }
