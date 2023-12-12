@@ -9,4 +9,3 @@
  */
 
 rootProject.name = "klojure"
-include("lib")
