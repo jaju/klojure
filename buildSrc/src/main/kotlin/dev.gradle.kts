@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    implementation("org.slf4j:slf4j-simple:2.0.9")
+    implementation("org.slf4j:slf4j-simple:2.0.13")
 }
 
 val sourceSet = project.the<SourceSetContainer>()

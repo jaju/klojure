@@ -1,4 +1,4 @@
-val kotlinVersion = "1.9.21"
+val kotlinVersion = "2.0.0"
 
 repositories {
     gradlePluginPortal()
