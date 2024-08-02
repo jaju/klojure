@@ -8,4 +8,8 @@
  * This project uses @Incubating APIs which are subject to change.
  */
 
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version("0.8.0")
+}
+
 rootProject.name = "klojure"

@@ -46,7 +46,7 @@ sourceSets {
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
-    api("org.clojure:clojure:1.12.0-alpha12")
+    api("org.clojure:clojure:1.12.0-beta2")
     api("org.slf4j:slf4j-api:2.0.13")
 
     //
