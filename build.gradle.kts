@@ -46,11 +46,11 @@ sourceSets {
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
-    api("org.clojure:clojure:1.12.0-beta2")
-    api("org.slf4j:slf4j-api:2.0.13")
+    api("org.clojure:clojure:1.12.0-rc1")
+    api("org.slf4j:slf4j-api:2.0.16")
 
     //
-    implementation("nrepl:nrepl:1.2.0")
+    implementation("nrepl:nrepl:1.3.0")
 
     // Test
     testImplementation("cheshire:cheshire:5.13.0")
@@ -62,7 +62,7 @@ testing {
         // Configure the built-in test suite
         val test by getting(JvmTestSuite::class) {
             // Use Kotlin Test test framework
-            useKotlinTest("2.0.0")
+            useKotlinTest("2.0.20")
         }
     }
 }
