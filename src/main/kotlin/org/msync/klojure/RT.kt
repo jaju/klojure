@@ -56,7 +56,7 @@ object RT {
 
     @Suppress("UNCHECKED_CAST")
     private inline fun <I, O> wrapFn(crossinline f: Function1<I, O>) = object: AFn() {
-        override fun invoke(arg: Any?): Any? {
+        override fun invoke(arg: Any?): O {
             return f(arg as I)
         }
     }
@@ -65,7 +65,7 @@ object RT {
         return _map(wrapperFn, coll)
     }
 
-    fun map(f: IFn, coll: Any): Any? {
+    fun map(f: IFn, coll: Collection<Any>): Any? {
         return _map(f, coll)
     }
 
@@ -73,7 +73,7 @@ object RT {
 
     inline fun <I, O> wrapFn(crossinline f: Function2<I, I, O>, unit: O? = null) = object: AFn() {
 
-        override fun invoke(): Any? {
+        override fun invoke(): O? {
             return unit
         }
 
@@ -86,6 +86,7 @@ object RT {
             return f(arg1 as I, arg2 as I)
         }
     }
+
     inline fun <I, O> reduce(crossinline f: Function2<I, I, O>, coll: Collection<I>): Any? {
         val wrapperF = wrapFn(f)
         return _reduce(wrapperF, coll)
@@ -95,6 +96,7 @@ object RT {
         val wrapperF = wrapFn(f)
         return _reduce(wrapperF, coll)
     }
+
     fun reduce(f: IFn, coll: Collection<Any>): Any? = _reduce(f, coll)
 
     val get = cfn("get")
