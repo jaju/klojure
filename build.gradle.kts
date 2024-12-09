@@ -1,3 +1,7 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+
 group = "org.msync"
 version = "0.0.3-SNAPSHOT"
 
@@ -6,6 +10,7 @@ plugins {
     signing
     `maven-publish`
     `kotlin-dsl`
+    kotlin("jvm") version "2.1.0"
     id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
 }
 
@@ -27,6 +32,35 @@ java {
     withSourcesJar()
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+kotlin {
+}
+
+tasks {
+
+    withType<JavaCompile>().configureEach {
+        options.compilerArgs.add("--enable-preview")
+        options.compilerArgs.add("-Xlint:preview")
+        options.compilerArgs.add("--add-modules=jdk.incubator.vector")
+        options.release.set(21)
+    }
+
+    withType<KotlinCompile>().configureEach {
+        compilerOptions {
+            languageVersion.set(KotlinVersion.KOTLIN_2_1)
+            apiVersion.set(KotlinVersion.KOTLIN_2_1)
+            jvmTarget.set(JvmTarget.JVM_21)
+        }
+    }
+
+    withType<JavaExec>().configureEach {
+        jvmArgs(
+            "--enable-preview",
+            "--enable-native-access=ALL-UNNAMED",
+            "--add-modules=jdk.incubator.vector"
+        )
     }
 }
 
@@ -62,7 +96,7 @@ testing {
         // Configure the built-in test suite
         val test by getting(JvmTestSuite::class) {
             // Use Kotlin Test test framework
-            useKotlinTest("2.0.20")
+            useKotlinTest("2.0.21")
         }
     }
 }
